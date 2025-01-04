@@ -28,13 +28,12 @@ jobs:
       with:
         hf_token: ${{ secrets.HF }}
 
-    - name: Deploy to Hugging Face Spaces
+    - name: Push to Hugging Face Hub
+      env:
+        HF: ${{ secrets.HF }}
       run: |
-        git clone https://huggingface.co/spaces/zobiabilal/cicd
-        cd cicd
-        cp -r * ../
-        cd ..
-        git add .
-        git commit -m "Deploy to Hugging Face Space"
-        git push https://huggingface.co/spaces/zobiabilal/cicd
+        git config --global credential.helper store
+        echo "https://huggingface.co/spaces/zobiabilal/cicd" > .git-credentials
+        echo "username=${{ secrets.HF }}" >> .git-credentials
+        git push --force space main
 
