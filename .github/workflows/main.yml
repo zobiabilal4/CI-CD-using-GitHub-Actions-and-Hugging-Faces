@@ -26,14 +26,14 @@ jobs:
     - name: Log in to Hugging Face
       uses: huggingface/huggingface-cli-action@v1
       with:
-        hf_token: ${{ secrets.HF }}
+        hf_token: ${{ secrets.HG }}
 
     - name: Push to Hugging Face Hub
       env:
-        HF: ${{ secrets.HF }}
+        HF: ${{ secrets.HG}}
       run: |
         git config --global credential.helper store
         echo "https://huggingface.co/spaces/zobiabilal/cicd" > .git-credentials
-        echo "username=${{ secrets.HF }}" >> .git-credentials
+        echo "username=${{ secrets.HG }}" >> .git-credentials
         git push --force space main
 
